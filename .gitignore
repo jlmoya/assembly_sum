@@ -1,0 +1,17 @@
+# Build artifacts
+*.o
+*.obj
+*.exe
+sum_windows
+sum_macos
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

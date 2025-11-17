@@ -1,0 +1,40 @@
+# Makefile for MacOS ARM64 Assembly Example
+# Requires Xcode Command Line Tools (for as and gcc/clang)
+
+# Assembler and compiler
+ASM = as
+CC = gcc
+
+# Flags
+ASMFLAGS = -arch arm64
+CFLAGS = -Wall -arch arm64
+
+# Targets
+TARGET = sum_macos
+ASM_OBJ = sum_macos_arm64.o
+C_OBJ = main_macos.o
+
+# Default target
+all: $(TARGET)
+
+# Link C and assembly object files
+$(TARGET): $(C_OBJ) $(ASM_OBJ)
+	$(CC) $(CFLAGS) $(C_OBJ) $(ASM_OBJ) -o $(TARGET)
+
+# Compile C source
+$(C_OBJ): main_macos.c
+	$(CC) $(CFLAGS) -c main_macos.c -o $(C_OBJ)
+
+# Assemble assembly source
+$(ASM_OBJ): sum_macos_arm64.s
+	$(ASM) $(ASMFLAGS) sum_macos_arm64.s -o $(ASM_OBJ)
+
+# Run the program
+run: $(TARGET)
+	./$(TARGET)
+
+# Clean build artifacts
+clean:
+	rm -f $(TARGET) $(ASM_OBJ) $(C_OBJ)
+
+.PHONY: all run clean

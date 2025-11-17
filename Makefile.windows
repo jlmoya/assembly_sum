@@ -1,0 +1,40 @@
+# Makefile for Windows x64 Assembly Example
+# Requires NASM and GCC (MinGW-w64)
+
+# Assembler and compiler
+ASM = nasm
+CC = gcc
+
+# Flags
+ASMFLAGS = -f win64
+CFLAGS = -Wall
+
+# Targets
+TARGET = sum_windows.exe
+ASM_OBJ = sum_windows_x64.obj
+C_OBJ = main_windows.o
+
+# Default target
+all: $(TARGET)
+
+# Link C and assembly object files
+$(TARGET): $(C_OBJ) $(ASM_OBJ)
+	$(CC) $(C_OBJ) $(ASM_OBJ) -o $(TARGET)
+
+# Compile C source
+$(C_OBJ): main_windows.c
+	$(CC) $(CFLAGS) -c main_windows.c -o $(C_OBJ)
+
+# Assemble assembly source
+$(ASM_OBJ): sum_windows_x64.asm
+	$(ASM) $(ASMFLAGS) sum_windows_x64.asm -o $(ASM_OBJ)
+
+# Run the program
+run: $(TARGET)
+	./$(TARGET)
+
+# Clean build artifacts
+clean:
+	del /f $(TARGET) $(ASM_OBJ) $(C_OBJ) 2>nul || true
+
+.PHONY: all run clean
