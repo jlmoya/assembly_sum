@@ -36,7 +36,7 @@ You will be prompted twice for integers; the program calls `add_numbers` in the 
 When Python 3 is available during configuration, CTest registers a simple regression that pipes sample input into `sum_arm64` and checks the reported sum.  Re-run it any time with:
 
 ```bash
-cd assembly_sum
+cd ./assembly_sum
 ctest --test-dir build
 ```
 
